@@ -21,7 +21,7 @@ public class MainWindow extends BasicWindow {
         this(ui, "Main Menu");
     }
 
-    private record MenuItem(String name, Runnable func) {
+    private record MenuItem(String name, Runnable func, BorderLayout.Location location) {
     }
 
     private Component build() {
@@ -39,31 +39,31 @@ public class MainWindow extends BasicWindow {
 
         //lines 41-67 need to be fixed/updated.. but for the sake of moving on
         MenuItem[] menu = {
-                new MenuItem("Filter by Category", this :: NoOp), //class :: function ...
+                new MenuItem("Filter by Category", this :: NoOp, BorderLayout.Location.TOP), //class :: function ...
                                                                         // so like AllItemsWindow :: showStuff
-                new MenuItem("View All HStore Items!", this::NoOp),
-                new MenuItem("View our most popular items", this::NoOp),
-                new MenuItem("Search for cheap prices!", this::NoOp)
+                new MenuItem("View All HStore Items!", ui::showAllProductsPage, BorderLayout.Location.LEFT),
+                new MenuItem("View our most popular items", this::NoOp, BorderLayout.Location.RIGHT),
+                new MenuItem("Search for cheap prices!", this::NoOp, BorderLayout.Location.BOTTOM)
         };
 
         for (MenuItem mi : menu) {
-            //panel.addComponent(new Button(mi.name, mi.func));
-            
-            panel.addComponent(new Button("Filter by Category", () -> {
-                System.out.println("Struggling huh?");
-            }), BorderLayout.Location.TOP);
-
-            panel.addComponent(new Button("View All HStore Items!", () -> {
-                System.out.println("tapped the button vo=r!");
-            }), BorderLayout.Location.LEFT);
-
-            panel.addComponent(new Button("View our most popular items!", () -> {
-                System.out.println("popular items estan aqui");
-            }), BorderLayout.Location.RIGHT);
-
-            panel.addComponent(new Button("Search for cheap prices!", () -> {
-                System.out.println("bro there's not anything cheap here bffr");
-            }), BorderLayout.Location.BOTTOM);
+            panel.addComponent(new Button(mi.name, mi.func), mi.location);
+//
+//            panel.addComponent(new Button("Filter by Category", () -> {
+//                System.out.println("Struggling huh?");
+//            }), BorderLayout.Location.TOP);
+//
+//            panel.addComponent(new Button("View All HStore Items!", () -> {
+//                System.out.println("tapped the button vo=r!");
+//            }), BorderLayout.Location.LEFT);
+//
+//            panel.addComponent(new Button("View our most popular items!", () -> {
+//                System.out.println("popular items estan aqui");
+//            }), BorderLayout.Location.RIGHT);
+//
+//            panel.addComponent(new Button("Search for cheap prices!", () -> {
+//                System.out.println("bro there's not anything cheap here bffr");
+//            }), BorderLayout.Location.BOTTOM);
 
         }
 
