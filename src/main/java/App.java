@@ -1,5 +1,7 @@
 import backend.Database;
+import backend.repositories.ProductsRepo;
 import backend.repositories.QuestionRepo;
+import backend.services.ProductService;
 import backend.services.QuestionService;
 import ui.Gui;
 import ui.UIController;
@@ -26,15 +28,15 @@ public class App {
             Connection conn = db.getConnection();
 
             // Repositories
-            QuestionRepo questionRepo = new QuestionRepo(conn);
+            ProductsRepo productsRepo = new ProductsRepo(conn);
 
             // Services
-            QuestionService questionService = new QuestionService(questionRepo);
+            ProductService productService = new ProductService(productsRepo);
 
             // GUI
             Gui gui = new Gui();
             gui.start();
-            UIController ui = new UIController(gui, questionService);
+            UIController ui = new UIController(gui, productService);
             ui.showMainMenu();
 
         } catch (IOException e) {

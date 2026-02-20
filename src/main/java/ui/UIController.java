@@ -1,7 +1,9 @@
 package ui;
 
+import backend.services.ProductService;
 import backend.services.QuestionService;
 import com.googlecode.lanterna.gui2.Window;
+import ui.windows.AllProductsWindow;
 import ui.windows.AllQuestionsWindow;
 import ui.windows.MainWindow;
 
@@ -9,21 +11,20 @@ import ui.windows.MainWindow;
 Handles navigation
  */
 public class UIController {
-
     private final Gui gui;
-    private final QuestionService questionService;
+    private final ProductService productService;
 
-    public UIController(Gui gui, QuestionService questionService) {
+    public UIController(Gui gui, ProductService productService){
         this.gui = gui;
-        this.questionService = questionService;
+        this.productService = productService;
     }
 
-    public void showMainMenu() {
+    public void showMainMenu(){
         gui.show(new MainWindow(this));
     }
 
-    public void showAllQuestionsPage() {
-        gui.show(new AllQuestionsWindow(this, questionService));
+    public void showAllProductsPage(){
+        gui.show(new AllProductsWindow(this, productService));
     }
 
     public void closeWindow(Window window) {
