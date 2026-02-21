@@ -37,11 +37,9 @@ public class ViewPriceWindow extends BasicWindow {
         panel.addComponent(alb);
 
         for (Price x : prices) {
-            alb.addItem(String.valueOf(x.price()), () -> System.out.println(x.products_id())); //note
-                                                                                // how you turned that into a string
-            //                                                                          valye of
+            alb.addItem(x.products_id() + ". $" + String.valueOf(x.price()) + ".00", () -> System.out.println(x.products_id()));
         }
-        alb.addItem("Back", () -> ui.closeWindow(this));
+        alb.addItem("-----Back-----", () -> ui.closeWindow(this));
 
         return panel;
     }
