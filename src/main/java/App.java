@@ -1,8 +1,11 @@
 import backend.Database;
+import backend.repositories.PricesRepo;
 import backend.repositories.ProductsRepo;
 import backend.repositories.QuestionRepo;
+import backend.services.PriceService;
 import backend.services.ProductService;
 import backend.services.QuestionService;
+import models.Price;
 import ui.Gui;
 import ui.UIController;
 
@@ -29,14 +32,17 @@ public class App {
 
             // Repositories
             ProductsRepo productsRepo = new ProductsRepo(conn);
+            PricesRepo pricesRepo = new PricesRepo(conn);
 
             // Services
             ProductService productService = new ProductService(productsRepo);
+            PriceService priceService = new PriceService(pricesRepo);
+
 
             // GUI
             Gui gui = new Gui();
             gui.start();
-            UIController ui = new UIController(gui, productService);
+            UIController ui = new UIController(gui, productService, priceService);
             ui.showMainMenu();
 
         } catch (IOException e) {

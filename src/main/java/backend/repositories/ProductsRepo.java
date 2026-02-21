@@ -19,8 +19,7 @@ public class ProductsRepo {
         try(PreparedStatement sql = conn.prepareStatement("SELECT id, name FROM products")){
             try(ResultSet rs = sql.executeQuery()){
                 while(rs.next()){
-                    productList.add(new Product(rs.getInt("id"),rs.getString("name")
-                    ,rs.getInt("category_id"),rs.getInt("season_id")));
+                    productList.add(new Product(rs.getInt("id"),rs.getString("name")));
                 }
             }
         } catch (SQLException e){
