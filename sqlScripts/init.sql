@@ -1,24 +1,38 @@
-CREATE TABLE question (
+-- categories definition
+CREATE TABLE categories (
 	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	question_text TEXT NOT NULL
+	category TEXT NOT NULL
 );
 
-CREATE TABLE answer_option (
-	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	option_text TEXT NOT NULL,
-	is_answer INTEGER NOT NULL CHECK (is_answer IN (0, 1)) DEFAULT 0,
-	question_id INTEGER NOT NULL
+-- pricing definition
+CREATE TABLE pricing (
+	products_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	price INTEGER NOT NULL,
+	date_info INTEGER NOT NULL,
+	CONSTRAINT pricing_products_FK FOREIGN KEY (products_id) REFERENCES products(id)
 );
 
-CREATE TABLE question_tag (
+-- products definition
+CREATE TABLE products (
 	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-	name TEXT NOT NULL UNIQUE
+	name TEXT NOT NULL,
+	category_id INTEGER NOT NULL,
+	season_id INTEGER NOT NULL,
+	CONSTRAINT products_categories_FK FOREIGN KEY (category_id) REFERENCES categories(id),
+	CONSTRAINT products_seasonal_info_FK FOREIGN KEY (season_id) REFERENCES seasonal_info(id)
 );
 
-CREATE TABLE question_question_tag (
-	question_id INTEGER NOT NULL,
-	question_tag_id INTEGER NOT NULL,
-	PRIMARY KEY (question_id, question_tag_id),
-	CONSTRAINT question_question_tag_question_FK FOREIGN KEY (question_id) REFERENCES question(id),
-	CONSTRAINT question_question_tag_question_tag_FK FOREIGN KEY (question_tag_id) REFERENCES question_tag(id)
+-- quantities definition
+CREATE TABLE quantities (
+	product_id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	inventory_available INTEGER NOT NULL,
+	CONSTRAINT quantities_products_FK FOREIGN KEY (product_id) REFERENCES products(id)
+);
+
+-- seasonal_info definition
+CREATE TABLE seasonal_info (
+	id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	name TEXT NOT NULL,
+	start_date INTEGER NOT NULL,
+	end_date INTEGER NOT NULL
 );
