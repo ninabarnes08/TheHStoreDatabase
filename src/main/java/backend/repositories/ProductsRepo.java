@@ -35,7 +35,7 @@ public class ProductsRepo {
         String sqlStatement = "INSERT INTO products (name, category_id, season_id) VALUES" +
                 " (?, ?, ?)" ;
         try(PreparedStatement sql = conn.prepareStatement(sqlStatement)){
-            sql.setString(1, name);
+            sql.setString(1, name + " (Suggested)");
             sql.setInt(2, 0);
             sql.setInt(3, seasonNumber);
             sql.executeUpdate();
