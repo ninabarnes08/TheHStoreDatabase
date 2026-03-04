@@ -31,7 +31,7 @@ public class MainWindow extends BasicWindow {
         );
 
         MenuItem[] menu = {
-                new MenuItem("Filter by Category", this :: NoOp, BorderLayout.Location.TOP), //class :: function ...
+                new MenuItem("Filter by Category", ui :: showFilterByCategoryPage, BorderLayout.Location.TOP), //class :: function ...
                                                                         // so like AllItemsWindow :: showStuff
                 new MenuItem("View All HStore Items!", ui::showAllProductsPage, BorderLayout.Location.LEFT),
                 new MenuItem("View our most popular items", this::NoOp, BorderLayout.Location.RIGHT),

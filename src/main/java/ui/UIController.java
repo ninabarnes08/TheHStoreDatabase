@@ -1,13 +1,12 @@
 package ui;
 
+import backend.services.CategoryService;
 import backend.services.PriceService;
 import backend.services.ProductService;
 import backend.services.QuestionService;
 import com.googlecode.lanterna.gui2.Window;
-import ui.windows.AllProductsWindow;
-import ui.windows.AllQuestionsWindow;
-import ui.windows.MainWindow;
-import ui.windows.ViewPriceWindow;
+import com.googlecode.lanterna.gui2.dialogs.FileDialog;
+import ui.windows.*;
 
 /*
 Handles navigation
@@ -16,32 +15,29 @@ public class UIController {
     private final Gui gui;
     private final ProductService productService;
     private final PriceService priceService;
+    private final CategoryService categoryService;
 
-        public UIController(Gui gui, ProductService productService, PriceService priceService){
+        public UIController(Gui gui, ProductService productService, PriceService priceService,
+                            CategoryService categoryService){
         this.gui = gui;
         this.priceService = priceService;
         this.productService = productService;
+        this.categoryService = categoryService;
     }
-
-//    public UIController(Gui gui, ProductService productService){
-//        this.gui = gui;
-//        this.productService = productService;
-//        priceService = null;
-//    }
-//
-//    public UIController(Gui gui, PriceService priceService){
-//        this.gui = gui;
-//        this.priceService = priceService;
-//        productService = null;
-//    }
 
     public void showMainMenu(){
         gui.show(new MainWindow(this));
     }
 
+    public void showFilterByCategoryPage(){
+            gui.show(new FilterByCategoryWindow(this, categoryService));
+    }
+
     public void showAllProductsPage(){
         gui.show(new AllProductsWindow(this, productService));
     }
+
+    public void showSuggestionWindow(){gui.show(new SuggestItemWindow(this, productService));}
 
     public void showViewPriceWindow(){
         gui.show(new ViewPriceWindow(this, priceService));

@@ -14,4 +14,8 @@ public class ProductService {
     public List<Product> getAllProducts() {
         return repo.getProducts();
     }
+
+    public void addProduct(String name, String season){
+        repo.addNewProduct(name, season);
+    }
 }
