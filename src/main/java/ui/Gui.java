@@ -2,6 +2,8 @@ package ui;
 
 import com.googlecode.lanterna.TextColor;
 import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialog;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 import com.googlecode.lanterna.screen.Screen;
 import com.googlecode.lanterna.screen.TerminalScreen;
 import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
@@ -43,4 +45,9 @@ public class Gui {
             throw new RuntimeException(e);
         }
     }
+
+    public MessageDialogButton showConfirmationDialog(String title, String message, MessageDialogButton... buttons) {
+        return MessageDialog.showMessageDialog(gui, title, message, buttons);
+    }
+
 }

@@ -44,4 +44,16 @@ public class ProductsRepo {
             throw new RuntimeException("Database error during product insert", e);
         }
     }
+
+    public void deleteProduct(int id){
+        System.out.println(id);
+        String sqlStatement = "DELETE FROM products WHERE id = ?"; //where id = ? and id > 20
+        try(PreparedStatement sql = conn.prepareStatement(sqlStatement)){
+            sql.setInt(1,id);
+            sql.executeUpdate();
+        } catch (SQLException e){
+            System.err.println("Failed to Delete Product");
+            throw new RuntimeException(e);
+        }
+    }
 }

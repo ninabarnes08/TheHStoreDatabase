@@ -4,8 +4,10 @@ import backend.services.CategoryService;
 import backend.services.PriceService;
 import backend.services.ProductService;
 import backend.services.QuestionService;
+import com.googlecode.lanterna.gui2.BasicWindow;
 import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.dialogs.FileDialog;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 import ui.windows.*;
 
 /*
@@ -25,8 +27,16 @@ public class UIController {
         this.categoryService = categoryService;
     }
 
+    public MessageDialogButton showConfirmationDialog(String title, String message, MessageDialogButton... buttons) {
+        return gui.showConfirmationDialog(title, message, buttons);
+    }
+
     public void showMainMenu(){
         gui.show(new MainWindow(this));
+    }
+
+    public void showWindow(BasicWindow window){
+            gui.show(window);
     }
 
     public void showFilterByCategoryPage(){

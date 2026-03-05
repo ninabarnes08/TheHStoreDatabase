@@ -3,9 +3,12 @@ package ui.windows;
 import backend.services.PriceService;
 import backend.services.ProductService;
 import com.googlecode.lanterna.gui2.*;
+import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
 import models.Price;
 import models.Product;
 import ui.UIController;
+
+import javax.swing.*;
 import java.util.List;
 
 public class AllProductsWindow extends BasicWindow {
@@ -30,24 +33,45 @@ public class AllProductsWindow extends BasicWindow {
         panel.setLayoutManager(
                 new LinearLayout(Direction.VERTICAL)
         );
+        Panel productsPanel = new Panel().setLayoutManager(new LinearLayout(Direction.HORIZONTAL));
+        panel.addComponent(productsPanel);
 
         List<Product> products = productService.getAllProducts();
-        //List<Price> prices = priceService.getAllPrices();
+
+
 
         ActionListBox alb = new ActionListBox();
-        panel.addComponent(alb);
+        ActionListBox deleteAlb = new ActionListBox();
+        productsPanel.addComponent(deleteAlb);
+        productsPanel.addComponent(alb);
+
 
         for (Product p : products) {
-            alb.addItem(p.name(), () -> System.out.println(p.id()));
+            deleteAlb.addItem("X (id " + String.valueOf(p.id()) + ")", () -> {
+                MessageDialogButton res =
+                        ui.showConfirmationDialog("Delete Record", "Are you sure you want to delete this suggestion?\n",
+                                MessageDialogButton.Cancel, MessageDialogButton.OK);
+                if(res == MessageDialogButton.OK){
+                    productService.deleteProduct(p.id());
+                    ui.showWindow(new AllProductsWindow(ui, productService));
+                    //productsPanel.removeAllComponents();
+                    //panel.removeAllComponents();
+                    //drawPanel(panel);
+                    //UPDATE TO MAKE AUTOCLOSEABLE
+                }
+            });
+            alb.addItem(p.name() + " (" + String.valueOf(p.id()) + ") ", () -> System.out.println(p.id()));
         }
 
-//        for (Price d : prices){
-//            alb.addItem(String.valueOf(d.price()), () -> System.out.println(d.products_id()));
-//        }
+
+        alb.addItem("----Suggest a New Item!----", ui::showSuggestionWindow);
         alb.addItem("----View Item Prices (In Order)----", ui::showViewPriceWindow);
         alb.addItem("----Back----", () -> ui.closeWindow(this));
 
         return panel;
+    }
+    private void drawPanel(Panel panel){
+        panel.setLayoutManager(new LinearLayout(Direction.VERTICAL));
     }
 
 }

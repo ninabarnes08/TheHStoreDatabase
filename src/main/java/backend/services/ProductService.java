@@ -18,4 +18,8 @@ public class ProductService {
     public void addProduct(String name, String season){
         repo.addNewProduct(name, season);
     }
+
+    public void deleteProduct(int id){
+        repo.deleteProduct(id);
+    }
 }
