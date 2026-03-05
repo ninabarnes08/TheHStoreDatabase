@@ -54,10 +54,7 @@ public class AllProductsWindow extends BasicWindow {
                 if(res == MessageDialogButton.OK){
                     productService.deleteProduct(p.id());
                     ui.showWindow(new AllProductsWindow(ui, productService));
-                    //productsPanel.removeAllComponents();
                     //panel.removeAllComponents();
-                    //drawPanel(panel);
-                    //UPDATE TO MAKE AUTOCLOSEABLE
                 }
             });
             alb.addItem(p.name() + " (" + String.valueOf(p.id()) + ") ", () -> System.out.println(p.id()));
