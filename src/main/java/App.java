@@ -25,6 +25,7 @@ Backend
 public class App {
     public static void run() throws SQLException {
         String url = "jdbc:sqlite:db";
+        int id = 0;
         try (
                 Database db = new Database(url);
         ) {
@@ -46,7 +47,7 @@ public class App {
             // GUI
             Gui gui = new Gui();
             gui.start();
-            UIController ui = new UIController(gui, productService, priceService, categoryService);
+            UIController ui = new UIController(gui, productService, priceService, categoryService, id);
             ui.showMainMenu();
 
         } catch (IOException e) {

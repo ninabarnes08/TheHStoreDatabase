@@ -56,4 +56,22 @@ public class ProductsRepo {
             throw new RuntimeException(e);
         }
     }
+
+    public void updateProduct(String sugName, int seasonId, int id){
+        String sqlStatement = """
+                UPDATE products
+                SET name = ?, category_id = ?, season_id = ?
+                WHERE id = ?
+                """;
+        try(PreparedStatement sql = conn.prepareStatement(sqlStatement)){
+            sql.setString(1,sugName);
+            sql.setInt(2, 0);
+            sql.setInt(3,seasonId);
+            sql.setInt(4, id);
+            sql.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Failed to Update Suggestion");
+            throw new RuntimeException(e);
+        }
+    }
 }

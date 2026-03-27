@@ -8,6 +8,7 @@ import com.googlecode.lanterna.gui2.BasicWindow;
 import com.googlecode.lanterna.gui2.Window;
 import com.googlecode.lanterna.gui2.dialogs.FileDialog;
 import com.googlecode.lanterna.gui2.dialogs.MessageDialogButton;
+import models.Product;
 import ui.windows.*;
 
 /*
@@ -18,13 +19,15 @@ public class UIController {
     private final ProductService productService;
     private final PriceService priceService;
     private final CategoryService categoryService;
+    private final int productId;
 
         public UIController(Gui gui, ProductService productService, PriceService priceService,
-                            CategoryService categoryService){
+                            CategoryService categoryService, int productId){
         this.gui = gui;
         this.priceService = priceService;
         this.productService = productService;
         this.categoryService = categoryService;
+        this.productId = productId;
     }
 
     public MessageDialogButton showConfirmationDialog(String title, String message, MessageDialogButton... buttons) {
@@ -57,7 +60,12 @@ public class UIController {
         window.close();
     }
 
+    public void showEditSuggestionWindow(Product p) {
+        gui.show(new EditSuggestionWindow(this, productService, p));
+    }
+
     public void closeApp() {
         gui.close();
     }
+
 }

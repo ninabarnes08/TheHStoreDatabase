@@ -22,4 +22,8 @@ public class ProductService {
     public void deleteProduct(int id){
         repo.deleteProduct(id);
     }
+
+    public void updateProduct(String sugName, int seasonId, int id){
+        repo.updateProduct(sugName, seasonId, id);
+    }
 }

@@ -24,7 +24,6 @@ public class AllProductsWindow extends BasicWindow {
         setComponent(build());
     }
 
-
     private record MenuItem(String name, Runnable func) {
     }
 
@@ -38,13 +37,10 @@ public class AllProductsWindow extends BasicWindow {
 
         List<Product> products = productService.getAllProducts();
 
-
-
         ActionListBox alb = new ActionListBox();
         ActionListBox deleteAlb = new ActionListBox();
         productsPanel.addComponent(deleteAlb);
         productsPanel.addComponent(alb);
-
 
         for (Product p : products) {
             deleteAlb.addItem("X (id " + String.valueOf(p.id()) + ")", () -> {
@@ -57,9 +53,9 @@ public class AllProductsWindow extends BasicWindow {
                     //panel.removeAllComponents();
                 }
             });
-            alb.addItem(p.name() + " (" + String.valueOf(p.id()) + ") ", () -> System.out.println(p.id()));
-        }
+            alb.addItem(p.name() + " (" + String.valueOf(p.id()) + ") ", () -> ui.showEditSuggestionWindow(p));
 
+        }
 
         alb.addItem("----Suggest a New Item!----", ui::showSuggestionWindow);
         alb.addItem("----View Item Prices (In Order)----", ui::showViewPriceWindow);
